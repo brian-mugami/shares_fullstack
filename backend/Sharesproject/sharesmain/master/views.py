@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -50,6 +49,7 @@ class MainShareView(ViewSet):
         return Response({"msg":"archived"}, status=status.HTTP_202_ACCEPTED)
 
 class UserMainShareView(ViewSet):
+    permission_classes = [IsAuthenticated, ]
 
     def list(self, request):
         shares = models.UserSharesMaster.objects.all()
@@ -82,6 +82,8 @@ class UserMainShareView(ViewSet):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 class UserWatchlistView(ViewSet):
+    permission_classes = [IsAuthenticated, ]
+
     def list(self, request):
         shares = models.UserShareWatchlist.objects.all()
         serializer = serializers.UserShareWatchlistSerializer(shares, many=True)

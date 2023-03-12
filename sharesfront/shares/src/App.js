@@ -5,6 +5,7 @@ import ErrorPage from "./pages/AppPages/ErrorPage";
 import Homepage from "./pages/AppPages/Home";
 import AuthPage,{action as authaction}from "./pages/AuthenticationPages/Authpage";
 import {action as logoutaction} from "./pages/AuthenticationPages/Logout"
+import IndexPage, {loader as sharesListLoader} from "./pages/AppPages/HomeIndex";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
     children:[
       {index: true, element:<Homepage/>},
       {path:"auth", element:<AuthPage/>, action: authaction},
-      {path:"logout",action: logoutaction}
+      {path:"logout",action: logoutaction},
+      {path:"index", element:<IndexPage/>, loader:sharesListLoader}
     ]
   }])
 

@@ -10,9 +10,14 @@ function MainNavigation(){
             <header>
                 <nav>
                     <ul>
+                        {!token && (
+                        <li>
+                            <NavLink to="/">Welcome</NavLink>
+                        </li>
+                        )}
                         {token && (
                         <li>
-                            <NavLink to="/">Home</NavLink>
+                            <NavLink to="/index">Home Page</NavLink>
                         </li>
                         )}
                         {!token && (

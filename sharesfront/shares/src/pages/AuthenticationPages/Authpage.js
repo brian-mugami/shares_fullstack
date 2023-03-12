@@ -54,11 +54,11 @@ export async function action ({request}){
           localStorage.setItem('access_token', access_token)
           localStorage.setItem('refresh_token', refresh_token)
           const expiration = new Date()
-          expiration.setHours(expiration.getHours() + 24)
+          expiration.setHours(expiration.getHours() + 36)
           localStorage.setItem('expiration', expiration.toISOString())
         
           // manage tokens
-          return redirect("/")}
+          return redirect("/index")}
         
     if(mode==='register'){
         const response = await fetch('http://localhost:8080/api/user/register', {
@@ -68,9 +68,13 @@ export async function action ({request}){
             },
             body: JSON.stringify(regData)
         })
-        if(response.status === 409){
+        if(response.status === 404){
             return response
           } 
+        
+        if (response.status === 401){
+          throw json({message:"You are not authorized to"}, {status: 401})
+        }  
 
         if(response.status === 417){
             return response
@@ -79,6 +83,6 @@ export async function action ({request}){
             throw json ({message:"Could not register user"}, {status: 500})
           }
 
-          return redirect("/")
+          return redirect("/login")
     }
 }
